@@ -13,10 +13,9 @@ import {
   MenubarRadioGroup,
   MenubarRadioItem,
 } from "@/components/ui/menubar";
-import { DragItemText } from "@/types/draggable";
-import { Dispatch, SetStateAction, useContext, useMemo } from "react";
+
+import { useContext} from "react";
 import { FrameEditorContext } from "./FrameEditor";
-import { Button } from "./ui/button";
 import { GradientPicker } from "./GradientPicker";
 export default function EditorMenuBar() {
   const { setTextBoxes, setBackGroundColor, backgroundColor } = useContext(FrameEditorContext);
