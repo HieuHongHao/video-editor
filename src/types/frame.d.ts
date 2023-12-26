@@ -4,7 +4,9 @@ export interface IFrame {
     start?: number,
     end?: number
   }
-  
+
+
+
 export interface FramesProps {
     frames: IFrame[];
   }

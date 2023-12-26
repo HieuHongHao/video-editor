@@ -27,18 +27,26 @@ type XYCoord = {
 type GlobalEditorContext = {
   textBoxes: DragItemText[];
   setTextBoxes: Dispatch<SetStateAction<DragItemText[]>>;
+  backgroundColor: string;
+  setBackGroundColor: Dispatch<SetStateAction<string>>;
 };
 
 export const FrameEditorContext = createContext<GlobalEditorContext>({
   textBoxes: [],
   setTextBoxes: () => [],
+  backgroundColor: "",
+  setBackGroundColor: () => "",
 });
 
 export default function FrameEditor() {
   const [textBoxes, setTextBoxes] = useState<DragItemText[]>([]);
 
+  const [backgroundColor, setBackGroundColor] = useState<string>("#B4D455");
+
   return (
-    <FrameEditorContext.Provider value={{ textBoxes, setTextBoxes }}>
+    <FrameEditorContext.Provider
+      value={{ textBoxes, setTextBoxes, backgroundColor, setBackGroundColor }}
+    >
       <div className="flex flex-col h-screen">
         <EditorMenuBar />
 
@@ -53,7 +61,8 @@ export default function FrameEditor() {
 }
 
 function Editor() {
-  const { textBoxes, setTextBoxes } = useContext(FrameEditorContext);
+  const { textBoxes, setTextBoxes, backgroundColor } =
+    useContext(FrameEditorContext);
 
   const moveBox = useCallback(
     (id: number, left: number, top: number) => {
@@ -83,7 +92,16 @@ function Editor() {
 
   return (
     <div
-      className="border w-3/5 h-3/4 rounded-2xl ml-6 object-cover mt-4 hover:border-indigo-500 hover:border-2 flex flex-col"
+      className="border w-3/5 h-3/4 rounded-2xl ml-6 object-cover mt-4 hover:border-black hover:border-2 flex flex-col"
+      style={
+        backgroundColor.startsWith("linear")
+          ? {
+              backgroundImage: backgroundColor,
+            }
+          : {
+              backgroundColor,
+            }
+      }
       ref={drop}
     >
       {textBoxes.map((textBox) => {
@@ -123,10 +141,11 @@ function DraggableText({ id, left, top, text }: DragItemText) {
     }),
     [left, top]
   );
+
   const onClickOutsideListener = () => {
     setisEditing(false);
-    document.removeEventListener("click", onClickOutsideListener)
-  }
+    document.removeEventListener("click", onClickOutsideListener);
+  };
 
   if (isDragging) {
     return <div ref={drag} />;
@@ -148,7 +167,7 @@ function DraggableText({ id, left, top, text }: DragItemText) {
             });
           }}
           onMouseLeave={() => {
-            document.addEventListener("click", onClickOutsideListener)
+            document.addEventListener("click", onClickOutsideListener);
           }}
         />
       ) : (
@@ -158,7 +177,7 @@ function DraggableText({ id, left, top, text }: DragItemText) {
           style={positionStyle}
           key={id}
         >
-          {text}
+          {text === "" ? "Enter your text here" : text}
         </div>
       )}
     </div>

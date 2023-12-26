@@ -14,10 +14,15 @@ import {
   MenubarRadioItem,
 } from "@/components/ui/menubar";
 import { DragItemText } from "@/types/draggable";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useMemo } from "react";
 import { FrameEditorContext } from "./FrameEditor";
+import { Button } from "./ui/button";
+import { GradientPicker } from "./GradientPicker";
 export default function EditorMenuBar() {
-  const {setTextBoxes} = useContext(FrameEditorContext);
+  const { setTextBoxes, setBackGroundColor, backgroundColor } = useContext(FrameEditorContext);
+
+  
+  
   return (
     <Menubar className="w-max ml-10">
       <MenubarMenu>
@@ -53,28 +58,13 @@ export default function EditorMenuBar() {
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>Background</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>
-            Undo <MenubarShortcut>⌘Z</MenubarShortcut>
-          </MenubarItem>
-          <MenubarItem>
-            Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarSub>
-            <MenubarSubTrigger>Find</MenubarSubTrigger>
-            <MenubarSubContent>
-              <MenubarItem>Search the web</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Find...</MenubarItem>
-              <MenubarItem>Find Next</MenubarItem>
-              <MenubarItem>Find Previous</MenubarItem>
-            </MenubarSubContent>
-          </MenubarSub>
-          <MenubarSeparator />
-          <MenubarItem>Cut</MenubarItem>
-          <MenubarItem>Copy</MenubarItem>
-          <MenubarItem>Paste</MenubarItem>
+        <MenubarContent >
+          
+          
+          <GradientPicker
+            background={backgroundColor}
+            setBackground={setBackGroundColor}
+          />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
@@ -114,3 +104,4 @@ export default function EditorMenuBar() {
     </Menubar>
   );
 }
+

@@ -7,10 +7,13 @@ interface SubtitleProps {
 
 export const Subtitle: React.FC<SubtitleProps> = ({ text }) => {
   const frame = useCurrentFrame();
+
   const opacity = interpolate(frame, [30, 50], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
+  
 
   return (
     <AbsoluteFill className="bg-white">
