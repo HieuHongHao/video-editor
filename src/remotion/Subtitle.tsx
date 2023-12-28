@@ -3,9 +3,10 @@ import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 
 interface SubtitleProps {
   text?: String;
+  backgroundColor?: String;
 }
 
-export const Subtitle: React.FC<SubtitleProps> = ({ text }) => {
+  export const Subtitle: React.FC<SubtitleProps> = ({ text, backgroundColor }) => {
   const frame = useCurrentFrame();
 
   const opacity = interpolate(frame, [30, 50], [0, 1], {
@@ -16,10 +17,10 @@ export const Subtitle: React.FC<SubtitleProps> = ({ text }) => {
   
 
   return (
-    <AbsoluteFill className="bg-white">
+    <AbsoluteFill className="bg-white" style={{backgroundColor}}>
       <div
-        className="text-zinc-900 font-semibold text-3xl tracking-tighter"
-        style={{ opacity }}
+        className="text-zinc-900 font-semibold text-7xl tracking-tighter mt-auto mb-auto ml-auto mr-auto"
+        
       >
         {text}
       </div>

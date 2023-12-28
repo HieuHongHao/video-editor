@@ -1,19 +1,9 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useMemo,
-  useCallback,
-  createContext,
-  useContext,
-} from "react";
-import EditorMenuBar from "./EditorMenuBar";
-import VideoTimeLine from "./VideoTimeLine";
+import { useState, useMemo, useCallback} from "react";
 import { Input } from "@/components/ui/input";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import type { DragItemText } from "../types/draggable";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { cloneDeep, divide } from "lodash";
+import { useDrag, useDrop } from "react-dnd";
+import type { DragItemText } from "../../../types/draggable";
+import { cloneDeep } from "lodash";
+import useFrameEditor from "@/hooks/useFrameEditor";
 
 const Draggable = {
   TEXT: "text",
@@ -23,57 +13,25 @@ type XYCoord = {
   x: number;
   y: number;
 };
+export default function Editor() {
+  const { frames, setFrames, currentFrame } = useFrameEditor();
 
-type GlobalEditorContext = {
-  textBoxes: DragItemText[];
-  setTextBoxes: Dispatch<SetStateAction<DragItemText[]>>;
-  backgroundColor: string;
-  setBackGroundColor: Dispatch<SetStateAction<string>>;
-};
-
-export const FrameEditorContext = createContext<GlobalEditorContext>({
-  textBoxes: [],
-  setTextBoxes: () => [],
-  backgroundColor: "",
-  setBackGroundColor: () => "",
-});
-
-export default function FrameEditor() {
-  const [textBoxes, setTextBoxes] = useState<DragItemText[]>([]);
-
-  const [backgroundColor, setBackGroundColor] = useState<string>("#B4D455");
-
-  return (
-    <FrameEditorContext.Provider
-      value={{ textBoxes, setTextBoxes, backgroundColor, setBackGroundColor }}
-    >
-      <div className="flex flex-col h-screen">
-        <EditorMenuBar />
-
-        <DndProvider backend={HTML5Backend}>
-          <Editor />
-        </DndProvider>
-
-        <VideoTimeLine />
-      </div>
-    </FrameEditorContext.Provider>
-  );
-}
-
-function Editor() {
-  const { textBoxes, setTextBoxes, backgroundColor } =
-    useContext(FrameEditorContext);
+  const { backgroundColor, textBoxes } = useMemo(() => {
+    return {
+      backgroundColor: frames[currentFrame].backgroundColor,
+      textBoxes: frames[currentFrame].text,
+    };
+  }, [frames, currentFrame]);
 
   const moveBox = useCallback(
     (id: number, left: number, top: number) => {
-      setTextBoxes((prev) => {
-        const item = prev[id];
-        item.top = top;
-        item.left = left;
+      setFrames((prev) => {
+        prev[currentFrame].text[id].top = top;
+        prev[currentFrame].text[id].left = left;
         return cloneDeep(prev);
       });
     },
-    [setTextBoxes]
+    [setFrames, currentFrame]
   );
 
   const [, drop] = useDrop(
@@ -122,7 +80,7 @@ function Editor() {
 function DraggableText({ id, left, top, text }: DragItemText) {
   const [isEditing, setisEditing] = useState(false);
 
-  const { setTextBoxes } = useContext(FrameEditorContext);
+  const { setFrames, currentFrame } = useFrameEditor();
 
   const [{ isDragging }, drag] = useDrag(() => {
     return {
@@ -161,10 +119,10 @@ function DraggableText({ id, left, top, text }: DragItemText) {
           style={positionStyle}
           key={id}
           onChange={(e) => {
-            setTextBoxes((prev) => {
-              prev[id].text = e.target.value;
+            setFrames(prev => {
+              prev[currentFrame].text[id].text = e.target.value;
               return cloneDeep(prev);
-            });
+            })
           }}
           onMouseLeave={() => {
             document.addEventListener("click", onClickOutsideListener);

@@ -28,6 +28,7 @@ function TimeLine() {
         <div className="mt-2 font-medium text-sm">
           {intervals[intervals.length - 1][1]}
         </div>
+        
       </div>
     </div>
   );

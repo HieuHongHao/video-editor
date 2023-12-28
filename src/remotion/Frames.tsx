@@ -9,14 +9,14 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
   return (
     <TransitionSeries>
       <TransitionSeries.Sequence durationInFrames={60}>
-        <Subtitle text={"Test"} />
+        <Subtitle text={"What is love"} backgroundColor={"#ff75c3"}/>
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={slide()}
         timing={linearTiming({ durationInFrames: 30 })}
       />
       <TransitionSeries.Sequence durationInFrames={60}>
-        <Subtitle text={"What is love"} />
+        <Subtitle text={"Baby dont hurt me"} backgroundColor={"#9fff5b"} />
       </TransitionSeries.Sequence>
     </TransitionSeries>
   );

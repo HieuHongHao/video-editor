@@ -14,14 +14,12 @@ import {
   MenubarRadioItem,
 } from "@/components/ui/menubar";
 
-import { useContext} from "react";
-import { FrameEditorContext } from "./FrameEditor";
 import { GradientPicker } from "./GradientPicker";
+import useFrameEditor from "@/hooks/useFrameEditor";
+import { cloneDeep } from "lodash";
 export default function EditorMenuBar() {
-  const { setTextBoxes, setBackGroundColor, backgroundColor } = useContext(FrameEditorContext);
+  const { setFrames, currentFrame } = useFrameEditor();
 
-  
-  
   return (
     <Menubar className="w-max ml-10">
       <MenubarMenu>
@@ -29,15 +27,19 @@ export default function EditorMenuBar() {
         <MenubarContent>
           <MenubarItem
             onClick={() =>
-              setTextBoxes((prev) => [
-                ...prev,
-                {
-                  id: prev.length,
-                  top: 384,
-                  left: 384,
-                  text: "Enter your text here",
-                },
-              ])
+              setFrames((prev) => {
+                prev[currentFrame].text = [
+                  ...prev[currentFrame].text,
+                  {
+                    id: prev[currentFrame].text.length,
+                    top: 384,
+                    left: 384,
+                    text: "Enter your text here",
+                  },
+                ];
+                console.log(prev);
+                return cloneDeep(prev);
+              })
             }
           >
             New Text
@@ -57,13 +59,8 @@ export default function EditorMenuBar() {
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>Background</MenubarTrigger>
-        <MenubarContent >
-          
-          
-          <GradientPicker
-            background={backgroundColor}
-            setBackground={setBackGroundColor}
-          />
+        <MenubarContent>
+          <GradientPicker />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
@@ -103,4 +100,3 @@ export default function EditorMenuBar() {
     </Menubar>
   );
 }
-

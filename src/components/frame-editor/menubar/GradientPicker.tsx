@@ -1,14 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "../lib/utils";
-
 import { Paintbrush } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -17,31 +8,23 @@ import {
   MenubarSubContent,
   MenubarSub,
 } from "@/components/ui/menubar";
-import { MenubarItem } from "@radix-ui/react-menubar";
+import useFrameEditor from "@/hooks/useFrameEditor";
+import { cloneDeep } from "lodash";
 
-export function PickerExample() {
-  const [background, setBackground] = useState("#B4D455");
 
-  return (
-    <div
-      className="w-full h-full preview flex min-h-[350px] justify-center p-10 items-center rounded !bg-cover !bg-center transition-all"
-      style={{ background }}
-    >
-      <GradientPicker background={background} setBackground={setBackground} />
-    </div>
-  );
-}
 
 export function GradientPicker({
-  background,
-  setBackground,
   className,
 }: {
-  background: string;
-  setBackground: (background: string) => void;
   className?: string;
 }) {
+  const {frames, setFrames, currentFrame} = useFrameEditor();
+  const background = useMemo(() => {
+    return frames[currentFrame].backgroundColor;
+  }, [frames, currentFrame])
+  
   const solids = [
+    "#FFFFFF",
     "#E2E2E2",
     "#ff75c3",
     "#ffa647",
@@ -115,24 +98,37 @@ export function GradientPicker({
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="solid" className="flex flex-wrap gap-1 mt-0 ">
+          <TabsContent value="solid" className="flex flex-wrap gap-1 mt-0 w-[220px] ">
             {solids.map((s) => (
               <div
                 key={s}
                 style={{ background: s }}
                 className="rounded-md h-6 w-6 cursor-pointer active:scale-105"
-                onClick={() => setBackground(s)}
+                onClick={() => {
+                  setFrames(prev => {
+                    prev[currentFrame].backgroundColor = s;
+                    return cloneDeep(prev);
+                  })
+                }}
               />
             ))}
           </TabsContent>
 
-          <TabsContent value="gradient" className="flex flex-wrap gap-1 mt-0 w-[220px]">
+          <TabsContent
+            value="gradient"
+            className="flex flex-wrap gap-1 mt-0 w-[220px]"
+          >
             {gradients.map((s) => (
               <div
                 key={s}
                 style={{ background: s }}
                 className="rounded-md h-6 w-6 cursor-pointer active:scale-105"
-                onClick={() => setBackground(s)}
+                onClick={() => {
+                  setFrames(prev => {
+                    prev[currentFrame].backgroundColor = s;
+                    return cloneDeep(prev);
+                  })
+                }}
               />
             ))}
           </TabsContent>
@@ -144,7 +140,12 @@ export function GradientPicker({
                   key={s}
                   style={{ backgroundImage: s }}
                   className="rounded-md bg-cover bg-center h-12 w-full cursor-pointer active:scale-105"
-                  onClick={() => setBackground(s)}
+                  onClick={() => {
+                    setFrames(prev => {
+                      prev[currentFrame].backgroundColor = s;
+                      return cloneDeep(prev);
+                    })
+                  }}
                 />
               ))}
             </div>
