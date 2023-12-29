@@ -19,6 +19,9 @@ import useFrameEditor from "@/hooks/useFrameEditor";
 import { cloneDeep } from "lodash";
 export default function EditorMenuBar() {
   const { setFrames, currentFrame } = useFrameEditor();
+  
+  
+  
 
   return (
     <Menubar className="w-max ml-10">
@@ -37,7 +40,6 @@ export default function EditorMenuBar() {
                     text: "Enter your text here",
                   },
                 ];
-                console.log(prev);
                 return cloneDeep(prev);
               })
             }
@@ -46,6 +48,7 @@ export default function EditorMenuBar() {
           </MenubarItem>
           <MenubarItem>Font Size</MenubarItem>
           <MenubarItem>Text Color</MenubarItem>
+          
           <MenubarSeparator />
           <MenubarSub>
             <MenubarSubTrigger>Format</MenubarSubTrigger>

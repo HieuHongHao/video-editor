@@ -36,8 +36,11 @@ export default function VideoEditor() {
       <div className="flex flex-col">
         <Tabs defaultValue="video" className="rounded-md">
           <TabsList className="mt-4 ml-4 px-2 py-2">
+            <TabsTrigger value="frame">Editor</TabsTrigger>
             <TabsTrigger value="video">Preview</TabsTrigger>
-            <TabsTrigger value="frame">Frame</TabsTrigger>
+
+            
+            
           </TabsList>
           <TabsContent value="video">
             <div className="mt-1">

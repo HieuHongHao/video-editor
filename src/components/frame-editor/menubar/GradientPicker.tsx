@@ -2,7 +2,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Paintbrush } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   MenubarSubTrigger,
   MenubarSubContent,
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/menubar";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { cloneDeep } from "lodash";
+
 
 
 

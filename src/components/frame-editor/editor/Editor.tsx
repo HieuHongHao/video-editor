@@ -1,9 +1,22 @@
-import { useState, useMemo, useCallback} from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Input } from "@/components/ui/input";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+  ContextMenuSubTrigger,
+  ContextMenuSub,
+  ContextMenuSubContent,
+} from "@/components/ui/context-menu";
+
 import { useDrag, useDrop } from "react-dnd";
 import type { DragItemText } from "../../../types/draggable";
 import { cloneDeep } from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
+
+import { GradientPicker } from "../menubar/GradientPicker";
+import { fontSizeArray, formatArray } from "../../../utils/text-edit";
 
 const Draggable = {
   TEXT: "text",
@@ -50,7 +63,7 @@ export default function Editor() {
 
   return (
     <div
-      className="border w-3/5 h-3/4 rounded-2xl ml-6 object-cover mt-4 hover:border-black hover:border-2 flex flex-col"
+      className="border w-4/5 h-3/4 rounded-2xl ml-6 object-cover mt-4 hover:border-black hover:border-2 flex flex-col"
       style={
         backgroundColor.startsWith("linear")
           ? {
@@ -110,34 +123,66 @@ function DraggableText({ id, left, top, text }: DragItemText) {
   }
 
   return (
-    <div onClick={() => setisEditing(true)}>
-      {isEditing ? (
-        <Input
-          placeholder={text}
-          ref={drag}
-          className="w-max absolute"
-          style={positionStyle}
-          key={id}
-          onChange={(e) => {
-            setFrames(prev => {
-              prev[currentFrame].text[id].text = e.target.value;
-              return cloneDeep(prev);
-            })
-          }}
-          onMouseLeave={() => {
-            document.addEventListener("click", onClickOutsideListener);
-          }}
-        />
-      ) : (
-        <div
-          ref={drag}
-          className="w-max absolute text-sm font-medium "
-          style={positionStyle}
-          key={id}
-        >
-          {text === "" ? "Enter your text here" : text}
-        </div>
-      )}
-    </div>
+    <ContextMenu>
+      <ContextMenuTrigger onClick={() => setisEditing(true)}>
+        {isEditing ? (
+          <Input
+            placeholder={text}
+            ref={drag}
+            className="w-max absolute"
+            style={positionStyle}
+            key={id}
+            onChange={(e) => {
+              setFrames((prev) => {
+                prev[currentFrame].text[id].text = e.target.value;
+                return cloneDeep(prev);
+              });
+            }}
+            onMouseLeave={() => {
+              document.addEventListener("click", onClickOutsideListener);
+            }}
+          />
+        ) : (
+          <div
+            ref={drag}
+            className="w-max absolute text-sm font-medium "
+            style={positionStyle}
+            key={id}
+          >
+            {text === "" ? "Enter your text here" : text}
+          </div>
+        )}
+      </ContextMenuTrigger>
+      <ContextMenuContent className="left-96">
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>Font Size</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            {fontSizeArray.map((size, idx) => {
+              let processedFontSize = size.replace("text-","");
+              processedFontSize = processedFontSize.charAt(0).toUpperCase() + processedFontSize.slice(1);
+              return <ContextMenuItem key={idx}>{processedFontSize}</ContextMenuItem>;
+            })}
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>Text Color</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem>Black</ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>Format</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            {formatArray.map((format, idx) => {
+              let processedFormat = format.replace("font-", "");
+              processedFormat = processedFormat.charAt(0).toUpperCase() + processedFormat.slice(1);
+              return <ContextMenuItem key={idx}>{processedFormat}</ContextMenuItem>;
+            })}
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }
