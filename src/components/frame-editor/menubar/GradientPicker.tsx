@@ -185,6 +185,7 @@ const GradientButton = ({
       <div className="bg-popover/80 rounded-md p-1 text-xs text-center">
         {children}
       </div>
+      
     </div>
   );
 };

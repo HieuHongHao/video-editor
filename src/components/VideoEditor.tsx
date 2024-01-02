@@ -14,33 +14,32 @@ import FrameEditor from "./frame-editor/FrameEditor";
 import PreviewVideo from "./preview/previewVideo";
 import type { GlobalEditorContext } from "@/types/frame";
 
-
-
 export const FrameContext = createContext<GlobalEditorContext>({
   frames: [],
   setFrames: () => [],
   currentFrame: 0,
-  setCurrentFrame: () => 0
+  setCurrentFrame: () => 0,
 });
 
 export default function VideoEditor() {
-  const [frames, setFrames] = useState<IFrame[]>([{
-    backgroundColor: "#FFFFFF",
-    text: []
-  }]);
+  const [frames, setFrames] = useState<IFrame[]>([
+    {
+      backgroundColor: "#FFFFFF",
+      text: [],
+    },
+  ]);
   const [currentFrame, setCurrentFrame] = useState(0);
   const playerRef = useRef<PlayerRef>(null);
 
   return (
-    <FrameContext.Provider value={{ frames, setFrames, currentFrame, setCurrentFrame }}>
+    <FrameContext.Provider
+      value={{ frames, setFrames, currentFrame, setCurrentFrame }}
+    >
       <div className="flex flex-col">
         <Tabs defaultValue="video" className="rounded-md">
           <TabsList className="mt-4 ml-4 px-2 py-2">
             <TabsTrigger value="frame">Editor</TabsTrigger>
             <TabsTrigger value="video">Preview</TabsTrigger>
-
-            
-            
           </TabsList>
           <TabsContent value="video">
             <div className="mt-1">

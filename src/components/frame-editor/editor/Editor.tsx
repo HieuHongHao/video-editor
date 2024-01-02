@@ -15,7 +15,6 @@ import type { DragItemText } from "../../../types/draggable";
 import { cloneDeep } from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
 
-import { GradientPicker } from "../menubar/GradientPicker";
 import { fontSizeArray, formatArray } from "../../../utils/text-edit";
 
 const Draggable = {
@@ -26,9 +25,13 @@ type XYCoord = {
   x: number;
   y: number;
 };
+
+type EditorPosition = {
+  top: number;
+  left: number;
+};
 export default function Editor() {
   const { frames, setFrames, currentFrame } = useFrameEditor();
-
   const { backgroundColor, textBoxes } = useMemo(() => {
     return {
       backgroundColor: frames[currentFrame].backgroundColor,
@@ -44,8 +47,10 @@ export default function Editor() {
         return cloneDeep(prev);
       });
     },
-    [setFrames, currentFrame]
+    [setFrames]
   );
+
+  
 
   const [, drop] = useDrop(
     () => ({
@@ -63,7 +68,7 @@ export default function Editor() {
 
   return (
     <div
-      className="border w-4/5 h-3/4 rounded-2xl ml-6 object-cover mt-4 hover:border-black hover:border-2 flex flex-col"
+      className="border w-[900px] h-[500px] rounded-2xl object-cover mt-4 flex flex-col relative"
       style={
         backgroundColor.startsWith("linear")
           ? {
@@ -82,6 +87,8 @@ export default function Editor() {
             left={textBox.left}
             top={textBox.top}
             text={textBox.text}
+            relativeLeft={textBox.relativeLeft}
+            relativeTop={textBox.relativeTop}
             key={textBox.id}
           />
         );
@@ -90,7 +97,14 @@ export default function Editor() {
   );
 }
 
-function DraggableText({ id, left, top, text }: DragItemText) {
+function DraggableText({
+  id,
+  left,
+  top,
+  text,
+  relativeLeft,
+  relativeTop,
+}: DragItemText) {
   const [isEditing, setisEditing] = useState(false);
 
   const { setFrames, currentFrame } = useFrameEditor();
@@ -158,9 +172,13 @@ function DraggableText({ id, left, top, text }: DragItemText) {
           <ContextMenuSubTrigger>Font Size</ContextMenuSubTrigger>
           <ContextMenuSubContent>
             {fontSizeArray.map((size, idx) => {
-              let processedFontSize = size.replace("text-","");
-              processedFontSize = processedFontSize.charAt(0).toUpperCase() + processedFontSize.slice(1);
-              return <ContextMenuItem key={idx}>{processedFontSize}</ContextMenuItem>;
+              let processedFontSize = size.replace("text-", "");
+              processedFontSize =
+                processedFontSize.charAt(0).toUpperCase() +
+                processedFontSize.slice(1);
+              return (
+                <ContextMenuItem key={idx}>{processedFontSize}</ContextMenuItem>
+              );
             })}
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -177,8 +195,12 @@ function DraggableText({ id, left, top, text }: DragItemText) {
           <ContextMenuSubContent>
             {formatArray.map((format, idx) => {
               let processedFormat = format.replace("font-", "");
-              processedFormat = processedFormat.charAt(0).toUpperCase() + processedFormat.slice(1);
-              return <ContextMenuItem key={idx}>{processedFormat}</ContextMenuItem>;
+              processedFormat =
+                processedFormat.charAt(0).toUpperCase() +
+                processedFormat.slice(1);
+              return (
+                <ContextMenuItem key={idx}>{processedFormat}</ContextMenuItem>
+              );
             })}
           </ContextMenuSubContent>
         </ContextMenuSub>

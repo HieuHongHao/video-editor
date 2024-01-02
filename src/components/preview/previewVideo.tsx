@@ -1,6 +1,6 @@
 import { Player, PlayerRef } from "@remotion/player";
-import { useState, useMemo, useRef, RefObject } from "react";
-import type { IFrame, FramesProps } from "@/types/frame";
+import { useMemo, RefObject } from "react";
+import type { FramesProps } from "@/types/frame";
 import { Frames } from "@/remotion/Frames";
 import useFrameEditor from "@/hooks/useFrameEditor";
 

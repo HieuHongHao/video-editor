@@ -17,11 +17,9 @@ import {
 import { GradientPicker } from "./GradientPicker";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { cloneDeep } from "lodash";
+import { FontSize } from "../../../types/draggable.d.ts";
 export default function EditorMenuBar() {
   const { setFrames, currentFrame } = useFrameEditor();
-  
-  
-  
 
   return (
     <Menubar className="w-max ml-10">
@@ -35,9 +33,12 @@ export default function EditorMenuBar() {
                   ...prev[currentFrame].text,
                   {
                     id: prev[currentFrame].text.length,
-                    top: 384,
-                    left: 384,
+                    top: 250,
+                    left: 380,
+                    relativeLeft: 0,
+                    relativeTop: 0,
                     text: "Enter your text here",
+                    size: FontSize.sm
                   },
                 ];
                 return cloneDeep(prev);
@@ -48,7 +49,7 @@ export default function EditorMenuBar() {
           </MenubarItem>
           <MenubarItem>Font Size</MenubarItem>
           <MenubarItem>Text Color</MenubarItem>
-          
+
           <MenubarSeparator />
           <MenubarSub>
             <MenubarSubTrigger>Format</MenubarSubTrigger>

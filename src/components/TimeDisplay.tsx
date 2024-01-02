@@ -6,6 +6,5 @@ export const TimeDisplay: React.FC<{
 }> = ({ playerRef }) => {
   const frame = useCurrentPlayerFrame(playerRef);
   
-  
   return <div>current frame: {frame}</div>;
 };

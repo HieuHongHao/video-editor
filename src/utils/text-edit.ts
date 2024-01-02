@@ -1,8 +1,4 @@
 import { Format, FontSize } from "../types/draggable.d.ts";
-
-
-
-
 export const formatArray: Format[] = [
   Format.black,
   Format.bold,
