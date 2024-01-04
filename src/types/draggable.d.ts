@@ -5,18 +5,18 @@ export type DragItemText = {
   relativeTop: number;
   relativeLeft: number;
   text: string;
-  size?: FontSize;
-  format?: Format;
+  size: FontSize;
+  format: Format;
   color?: string;
 };
 
 export enum Format {
-  bold = "font-bold",
-  semibold = "font-semibold",
-  normal = "font-normal",
-  medium = "font-medium",
-  black = "font-black",
-  extrabold = "font-extrabold",
+  "bold" = "font-bold",
+  "semibold" = "font-semibold",
+  "normal" = "font-normal",
+  "medium" = "font-medium",
+  "black" = "font-black",
+  "extrabold" = "font-extrabold",
 }
 
 export enum FontSize {

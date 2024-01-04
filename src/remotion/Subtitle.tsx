@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { useMemo } from "react";
+import { DragItemText } from "@/types/draggable";
 
 interface SubtitleProps {
-  text?: String;
+  text?: DragItemText;
   backgroundColor?: String;
 }
 
@@ -13,11 +14,9 @@ export const Subtitle: React.FC<SubtitleProps> = ({
 }) => {
   const frame = useCurrentFrame();
 
-  
-
   const textSize = useMemo(() => {
-    return "text-9xl"
-  }, []);
+    return text?.size;
+  }, [text]);
 
   const opacity = interpolate(frame, [30, 50], [0, 1], {
     extrapolateLeft: "clamp",
@@ -27,12 +26,11 @@ export const Subtitle: React.FC<SubtitleProps> = ({
   
 
   return (
-    <AbsoluteFill className="bg-white" style={{ backgroundColor }}>
-      <div
-        className={`text-zinc-900 font-semibold tracking-tighter mt-auto mb-auto ml-auto mr-auto ${textSize}`}
-      >
-        {text}
-      </div>
-    </AbsoluteFill>
+    <div className={`${text?.size} ${text?.format} w-max absolute`} style={{
+      top: text?.top,
+      left: text?.left
+    }}>
+      {text?.text}
+    </div>
   );
 };

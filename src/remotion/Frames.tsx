@@ -1,23 +1,26 @@
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { Subtitle } from "./Subtitle";
 import { slide } from "@remotion/transitions/slide";
-import type { FramesProps} from '../types/frame'
-
-
+import type { FramesProps } from "../types/frame";
+import { AbsoluteFill } from "remotion";
 
 export const Frames: React.FC<FramesProps> = ({ frames }) => {
   return (
     <TransitionSeries>
-      <TransitionSeries.Sequence durationInFrames={60}>
-        <Subtitle text={"What is love"} backgroundColor={"#ff75c3"}/>
-      </TransitionSeries.Sequence>
-      <TransitionSeries.Transition
-        presentation={slide()}
-        timing={linearTiming({ durationInFrames: 30 })}
-      />
-      <TransitionSeries.Sequence durationInFrames={60}>
-        <Subtitle text={"Baby dont hurt me"} backgroundColor={"#9fff5b"} />
-      </TransitionSeries.Sequence>
+      {frames.map((frame, idx) => {
+        return (
+          <TransitionSeries.Sequence
+            durationInFrames={frame.duration}
+            key={idx}
+          >
+            <AbsoluteFill className="relative object-cover flex flex-col">
+              {frame.text.map((text) => {
+                return <Subtitle text={text} key={text.id} />;
+              })}
+            </AbsoluteFill>
+          </TransitionSeries.Sequence>
+        );
+      })}
     </TransitionSeries>
   );
 };

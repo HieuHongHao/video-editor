@@ -31,6 +31,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
     "remotion": "4.0.79",
+    "remotion-animated": "^2.0.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "vis-timeline": "^7.7.3",

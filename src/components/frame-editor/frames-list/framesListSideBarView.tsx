@@ -1,7 +1,10 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useFrameEditor from "@/hooks/useFrameEditor";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 import { FontSizeSideBar } from "../../../types/draggable.d.ts";
+import useFrameEditor from "@/hooks/useFrameEditor";
 import { IFrame } from "@/types/frame";
+
 
 export default function FramesList() {
   const { frames } = useFrameEditor();
@@ -15,6 +18,10 @@ export default function FramesList() {
       {frames.map((frame, idx) => {
         return <FrameView frame={frame} key={idx} />;
       })}
+      <Button className="ml-20 mt-4" size={"sm"} variant={"outline"}>
+        <Plus className="w-4 h-4 mr-1"/>
+        New frame
+      </Button>
     </ScrollArea>
   );
 }
@@ -34,7 +41,6 @@ function FrameView({ frame }: { frame: IFrame }) {
       }
     >
       {frame.text.map((text) => {
-        console.log(text.size);
         const fontSize = FontSizeSideBar[text.size!];
         return (
           <div

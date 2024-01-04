@@ -5,8 +5,9 @@ import type { DragItemText } from "./draggable";
 export interface IFrame {
     text: DragItemText[];
     backgroundColor: string;
-    start?: number,
-    end?: number
+    start: number,
+    end: number,
+    duration: number
   }
 
 export type GlobalEditorContext = {

@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/context-menu";
 
 import { useDrag, useDrop } from "react-dnd";
-import type { DragItemText } from "../../../types/draggable";
-import { cloneDeep } from "lodash";
+import { Format, type DragItemText } from "../../../types/draggable";
+import { cloneDeep} from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
 
 import { fontSizeArray, formatArray } from "../../../utils/text-edit";
@@ -47,10 +47,8 @@ export default function Editor() {
         return cloneDeep(prev);
       });
     },
-    [setFrames]
+    [setFrames, currentFrame]
   );
-
-  
 
   const [, drop] = useDrop(
     () => ({
@@ -89,6 +87,8 @@ export default function Editor() {
             text={textBox.text}
             relativeLeft={textBox.relativeLeft}
             relativeTop={textBox.relativeTop}
+            format={textBox.format}
+            size={textBox.size}
             key={textBox.id}
           />
         );
@@ -104,6 +104,8 @@ function DraggableText({
   text,
   relativeLeft,
   relativeTop,
+  format,
+  size
 }: DragItemText) {
   const [isEditing, setisEditing] = useState(false);
 
@@ -159,7 +161,7 @@ function DraggableText({
         ) : (
           <div
             ref={drag}
-            className="w-max absolute text-sm font-medium "
+            className={`w-max absolute ${size} ${format}`}
             style={positionStyle}
             key={id}
           >
@@ -177,7 +179,17 @@ function DraggableText({
                 processedFontSize.charAt(0).toUpperCase() +
                 processedFontSize.slice(1);
               return (
-                <ContextMenuItem key={idx}>{processedFontSize}</ContextMenuItem>
+                <ContextMenuItem
+                  key={idx}
+                  onClick={() => {
+                    setFrames((prev) => {
+                      prev[currentFrame].text[id].size = size;
+                      return cloneDeep(prev);
+                    });
+                  }}
+                >
+                  {processedFontSize}
+                </ContextMenuItem>
               );
             })}
           </ContextMenuSubContent>
@@ -199,7 +211,17 @@ function DraggableText({
                 processedFormat.charAt(0).toUpperCase() +
                 processedFormat.slice(1);
               return (
-                <ContextMenuItem key={idx}>{processedFormat}</ContextMenuItem>
+                <ContextMenuItem
+                  key={idx}
+                  onClick={() => {
+                    setFrames((prev) => {
+                      prev[currentFrame].text[id].format = format;
+                      return cloneDeep(prev);
+                    });
+                  }}
+                >
+                  {processedFormat}
+                </ContextMenuItem>
               );
             })}
           </ContextMenuSubContent>
