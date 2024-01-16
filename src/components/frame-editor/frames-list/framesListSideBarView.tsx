@@ -5,12 +5,11 @@ import { FontSizeSideBar } from "../../../types/draggable.d.ts";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { IFrame } from "@/types/frame";
 
-
 export default function FramesList() {
   const { frames } = useFrameEditor();
 
   return (
-    <ScrollArea className="flex flex-col h-screen w-1/5 border rounded-md ml-2">
+    <ScrollArea className="flex flex-col h-screen w-1/4 border">
       <div className="w-[100px] font-semibold text-2xl ml-5 mt-2">Frames</div>
       <div className="text-[0.8125rem] font-normal ml-6 mt-2">
         Choose a frame to edit or see preview
@@ -19,7 +18,7 @@ export default function FramesList() {
         return <FrameView frame={frame} key={idx} />;
       })}
       <Button className="ml-20 mt-4" size={"sm"} variant={"outline"}>
-        <Plus className="w-4 h-4 mr-1"/>
+        <Plus className="w-4 h-4 mr-1" />
         New frame
       </Button>
     </ScrollArea>
@@ -29,7 +28,7 @@ export default function FramesList() {
 function FrameView({ frame }: { frame: IFrame }) {
   return (
     <div
-      className="border rounded-2xl ml-6 object-cover mt-4 flex flex-col h-[125px] w-[225px]  hover:border-2 hover:border-black relative"
+      className="border rounded-2xl object-cover mt-4 ml-auto mr-auto flex flex-col h-[160px] w-[280px] hover:border-2 hover:border-black relative"
       style={
         frame.backgroundColor.startsWith("linear")
           ? {
@@ -44,10 +43,10 @@ function FrameView({ frame }: { frame: IFrame }) {
         const fontSize = FontSizeSideBar[text.size!];
         return (
           <div
-            className={`w-max absolute ${fontSize} font-medium`}
+            className={`w-max absolute ${fontSize} font-medium `}
             style={{
-              top: `${text.top / 4}px`,
-              left: `${text.left / 4}px`,
+              top: `${text.top / 2.5}px`,
+              left: `${text.left / 2.5}px`,
             }}
             key={text.id}
           >

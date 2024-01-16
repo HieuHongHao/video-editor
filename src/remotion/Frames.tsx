@@ -1,6 +1,5 @@
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { Subtitle } from "./Subtitle";
-import { slide } from "@remotion/transitions/slide";
 import type { FramesProps } from "../types/frame";
 import { AbsoluteFill } from "remotion";
 
@@ -15,9 +14,11 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
           >
             <AbsoluteFill className="relative object-cover flex flex-col">
               {frame.text.map((text) => {
+                
                 return <Subtitle text={text} key={text.id} />;
               })}
             </AbsoluteFill>
+            
           </TransitionSeries.Sequence>
         );
       })}
