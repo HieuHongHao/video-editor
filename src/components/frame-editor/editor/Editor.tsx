@@ -8,16 +8,15 @@ import {
   ContextMenuSubTrigger,
   ContextMenuSub,
   ContextMenuSubContent,
+  ContextMenuCheckboxItem,
+  ContextMenuSeparator,
 } from "@/components/ui/context-menu";
 
 import { useDrag, useDrop } from "react-dnd";
 import { type DragItemText } from "../../../types/draggable";
-import { cloneDeep} from "lodash";
+import { cloneDeep } from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { fontSizeArray, formatArray } from "../../../utils/text-edit";
-
-
-
 
 const Draggable = {
   TEXT: "text",
@@ -107,7 +106,7 @@ function DraggableText({
   relativeLeft,
   relativeTop,
   format,
-  size
+  size,
 }: DragItemText) {
   const [isEditing, setisEditing] = useState(false);
 
@@ -228,9 +227,9 @@ function DraggableText({
             })}
           </ContextMenuSubContent>
         </ContextMenuSub>
+        <ContextMenuSeparator />
+        <ContextMenuCheckboxItem className="pl-2">Animate</ContextMenuCheckboxItem>
       </ContextMenuContent>
     </ContextMenu>
   );
 }
-
-

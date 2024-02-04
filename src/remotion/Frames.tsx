@@ -26,7 +26,7 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
                   <Animated
                     key={text.id}
                     animations={[
-                      Scale({ by: 1, initial: 10}),
+                      Scale({ by: 1, initial: 10,}),
                       Move({ y: -40, start: 10 }),
                       Move({ y: 40, start: 100 }),
                       Fade({ to: 0, start: 160 }),

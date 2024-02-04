@@ -19,6 +19,11 @@ export type GlobalEditorContext = {
   setCurrentFrame: Dispatch<SetStateAction<number>>
 };
 
+export type AnimationContext = {
+  animatingText: number,
+  setAnimatingText: Dispatch<SetStateAction<number>>,
+}
+
 export interface FramesProps {
     frames: IFrame[];
   }
