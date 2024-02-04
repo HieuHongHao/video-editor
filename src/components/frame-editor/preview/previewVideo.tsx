@@ -13,7 +13,7 @@ export default function PreviewVideo({ frames }: { frames: IFrame[] }) {
   return (
     <Player
       component={Frames}
-      durationInFrames={180}
+      durationInFrames={300}
       compositionHeight={400}
       compositionWidth={700}
       fps={60}

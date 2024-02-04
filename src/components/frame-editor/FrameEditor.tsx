@@ -8,12 +8,16 @@ import EffectSelector from "./effect/EffectSelector";
 import PreviewSelector from "./preview/previewSelector";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import PreviewVideo from "./preview/previewVideo";
+import AnimationController from "./AnimationController/AnimationController";
 
 export enum SelectAction {
   Edit = "edit",
   Frame = "frame",
   Video = "video",
 }
+
+
+
 
 export default function FrameEditor() {
   const [selection, setSelect] = useState<SelectAction>(SelectAction.Edit);
@@ -27,6 +31,8 @@ export default function FrameEditor() {
         </div>
 
         <MediaController selection={selection} />
+
+        <AnimationController/>
       </div>
       <EffectSelector />
     </div>

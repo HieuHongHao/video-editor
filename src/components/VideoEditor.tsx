@@ -4,6 +4,8 @@ import FrameEditor from "./frame-editor/FrameEditor";
 import type { GlobalEditorContext } from "@/types/frame";
 import { FontSize, Format } from "../types/draggable.d.ts";
 
+
+
 export const FrameContext = createContext<GlobalEditorContext>({
   frames: [],
   setFrames: () => [],
@@ -18,8 +20,8 @@ export default function VideoEditor() {
       text: [
         {
           id: 0,
-          top: 250,
-          left: 380,
+          top: 180,
+          left: 280,
           relativeLeft: 0,
           relativeTop: 0,
           text: "Enter your text here",
@@ -27,8 +29,9 @@ export default function VideoEditor() {
           format: Format.medium,
         },
       ],
+      animations: [],
       start: 0,
-      duration: 60,
+      duration: 240,
       end: 60,
     },
   ]);

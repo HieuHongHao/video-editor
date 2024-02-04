@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import type { DragItemText } from "./draggable";
+import Animation from "../../node_modules/remotion-animated/dist/animations/Animation"
 
 
 export interface IFrame {
@@ -7,7 +8,8 @@ export interface IFrame {
   backgroundColor: string;
   start: number,
   end: number,
-  duration: number
+  duration: number,
+  animations: Animation[]
 }
 
 export type GlobalEditorContext = {

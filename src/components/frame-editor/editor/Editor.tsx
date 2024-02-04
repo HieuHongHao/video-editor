@@ -11,11 +11,13 @@ import {
 } from "@/components/ui/context-menu";
 
 import { useDrag, useDrop } from "react-dnd";
-import { Format, type DragItemText } from "../../../types/draggable";
+import { type DragItemText } from "../../../types/draggable";
 import { cloneDeep} from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
-
 import { fontSizeArray, formatArray } from "../../../utils/text-edit";
+
+
+
 
 const Draggable = {
   TEXT: "text",
@@ -230,3 +232,5 @@ function DraggableText({
     </ContextMenu>
   );
 }
+
+
