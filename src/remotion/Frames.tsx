@@ -8,6 +8,8 @@ import Fade from "../../node_modules/remotion-animated/dist/animations/Fade";
 import Move from "../../node_modules/remotion-animated/dist/animations/Move";
 import Size from "../../node_modules/remotion-animated/dist/animations/Size";
 
+
+
 export const Frames: React.FC<FramesProps> = ({ frames }) => {
   return (
     <TransitionSeries>
@@ -16,20 +18,22 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
           <TransitionSeries.Sequence
             durationInFrames={frame.duration}
             key={idx}
-            style={
-              frame.backgroundColor.startsWith("linear")
-                ? {
-                    backgroundImage: frame.backgroundColor,
-                  }
-                : {
-                    backgroundColor: frame.backgroundColor,
-                  }
-            }
           >
-            
+            <AbsoluteFill
+              style={
+                frame.backgroundColor.startsWith("linear")
+                  ? {
+                      backgroundImage: frame.backgroundColor,
+                    }
+                  : {
+                      backgroundColor: frame.backgroundColor,
+                    }
+              }
+            >
               {frame.text.map((text) => {
                 return (
                   <Animated
+                    absolute
                     key={text.id}
                     animations={[
                       Fade({ to: 1, initial: 0 }),
@@ -42,7 +46,7 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
                   </Animated>
                 );
               })}
-            
+            </AbsoluteFill>
           </TransitionSeries.Sequence>
         );
       })}
