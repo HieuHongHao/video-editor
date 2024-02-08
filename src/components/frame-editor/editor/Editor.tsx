@@ -17,6 +17,7 @@ import { type DragItemText } from "../../../types/draggable";
 import { cloneDeep } from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { fontSizeArray, formatArray } from "../../../utils/text-edit";
+import useAnimate from "@/hooks/useAnimate";
 
 const Draggable = {
   TEXT: "text",
@@ -67,7 +68,7 @@ export default function Editor() {
 
   return (
     <div
-      className="border w-[700px] h-[400px] rounded-2xl object-cover mt-4 flex flex-col relative"
+      className="border w-[720px] h-[360px] rounded-2xl object-cover mt-4 flex flex-col relative"
       style={
         backgroundColor.startsWith("linear")
           ? {
@@ -111,6 +112,8 @@ function DraggableText({
   const [isEditing, setisEditing] = useState(false);
 
   const { setFrames, currentFrame } = useFrameEditor();
+
+  const { setAnimatingText } = useAnimate();
 
   const [{ isDragging }, drag] = useDrag(() => {
     return {
@@ -228,7 +231,14 @@ function DraggableText({
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSeparator />
-        <ContextMenuCheckboxItem className="pl-2">Animate</ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem
+          className="pl-2"
+          onClick={() => {
+            setAnimatingText(id);
+          }}
+        >
+          Animate
+        </ContextMenuCheckboxItem>
       </ContextMenuContent>
     </ContextMenu>
   );

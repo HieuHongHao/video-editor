@@ -1,4 +1,4 @@
-import { Player} from "@remotion/player";
+import { Player } from "@remotion/player";
 import { useMemo } from "react";
 import type { FramesProps, IFrame } from "@/types/frame";
 import { Frames } from "@/remotion/Frames";
@@ -14,13 +14,13 @@ export default function PreviewVideo({ frames }: { frames: IFrame[] }) {
     <Player
       component={Frames}
       durationInFrames={300}
-      compositionHeight={400}
-      compositionWidth={700}
+      compositionHeight={360}
+      compositionWidth={720}
       fps={60}
       controls
       loop
       autoPlay={true}
-      className="w-max h-max rounded-2xl ml-6 object-cover border mt-4"
+      className="ml-3 mt-4"
       inputProps={inputProps}
     />
   );

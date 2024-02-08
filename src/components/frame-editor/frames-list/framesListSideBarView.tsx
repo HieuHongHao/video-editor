@@ -17,7 +17,7 @@ export default function FramesList() {
       {frames.map((frame, idx) => {
         return <FrameView frame={frame} key={idx} />;
       })}
-      <Button className="ml-20 mt-4" size={"sm"} variant={"outline"}>
+      <Button className="ml-28 mt-4" size={"sm"} variant={"outline"}>
         <Plus className="w-4 h-4 mr-1" />
         New frame
       </Button>
@@ -28,7 +28,7 @@ export default function FramesList() {
 function FrameView({ frame }: { frame: IFrame }) {
   return (
     <div
-      className="border rounded-2xl object-cover mt-4 ml-auto mr-auto flex flex-col h-[160px] w-[280px] hover:border-2 hover:border-black relative"
+      className="border rounded-2xl object-cover mt-4 ml-auto mr-auto flex flex-col h-[144px] w-[288px] hover:border-2 hover:border-black relative"
       style={
         frame.backgroundColor.startsWith("linear")
           ? {

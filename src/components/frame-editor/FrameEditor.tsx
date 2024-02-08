@@ -18,14 +18,14 @@ export enum SelectAction {
 }
 
 
-const FrameEditorContext = createContext<AnimationContext>({
+export const FrameEditorContext = createContext<AnimationContext>({
   animatingText: 0,
   setAnimatingText: () => 0,
 })
 
 export default function FrameEditor() {
   const [selection, setSelect] = useState<SelectAction>(SelectAction.Edit);
-  const [animatingText, setAnimatingText] = useState(0);
+  const [animatingText, setAnimatingText] = useState(-1);
 
   
   return (
