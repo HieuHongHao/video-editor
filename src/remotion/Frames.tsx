@@ -33,14 +33,8 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
               {frame.text.map((text) => {
                 return (
                   <Animated
-                    absolute
                     key={text.id}
-                    animations={[
-                      Fade({ to: 1, initial: 0 }),
-                      Move({ x: 40, start: 40 }),
-                      Fade({ to: 0, start: 160 }),
-                      Scale({ by: 0, start: 160, mass: 75 }),
-                    ]}
+                    animations={text.animations.map(textAnimation => textAnimation.animation)}
                   >
                     <Subtitle text={text} />
                   </Animated>

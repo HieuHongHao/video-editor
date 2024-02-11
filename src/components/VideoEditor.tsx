@@ -27,9 +27,9 @@ export default function VideoEditor() {
           text: "Enter your text here",
           size: FontSize.sm,
           format: Format.medium,
+          animations: []
         },
       ],
-      animations: [],
       start: 0,
       duration: 240,
       end: 60,

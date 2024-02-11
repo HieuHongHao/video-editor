@@ -1,26 +1,7 @@
 import useAnimate from "@/hooks/useAnimate";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import AddAnimation from "./AddAnimation";
-
-export enum AnimationSelection {
-  Fade = "Fade",
-  Scale = "Scale",
-  Rotate = "Rotate",
-  Size = "Size",
-  Move = "Move",
-}
-
-export enum AnimationActionType {
-  setFade,
-  setScale,
-  setRotate,
-  setSize,
-  setMove,
-}
-
-type AnimationAction = {
-  type: AnimationActionType;
-};
+import AnimationDisplay from "./AnimationDisplay";
 
 export default function AnimationController() {
   const { animatingText } = useAnimate();
@@ -35,15 +16,14 @@ export default function AnimationController() {
         </div>
       ) : (
         <div className="flex flex-row">
-          {frames[currentFrame].animations.map((animation,idx) => {
-            return <AnimationDisplay animation={animation}/>
-          })}
+          {frames[currentFrame].text[animatingText].animations.map(
+            (animation, idx) => {
+              return <AnimationDisplay animation={animation} idx={idx} key={idx}/>;
+            }
+          )}
           <AddAnimation />
         </div>
-        
       )}
     </div>
   );
 }
-
-

@@ -1,3 +1,4 @@
+import { FrameAnimation } from "./animation";
 export type DragItemText = {
   id: number;
   left: number;
@@ -8,6 +9,7 @@ export type DragItemText = {
   size: FontSize;
   format: Format;
   color?: string;
+  animations: FrameAnimation[];
 };
 
 export enum Format {

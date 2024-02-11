@@ -1,101 +1,46 @@
-import { Slider } from "@/components/ui/slider";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useState, useMemo } from "react";
+import useFrameEditor from "@/hooks/useFrameEditor";
+import useAnimate from "@/hooks/useAnimate";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useReducer, useState } from "react";
-import { AnimationSelection } from "./AnimationController";
+  AnimationSelection,
+  FrameAnimation,
+} from "../../../types/animation.d.ts";
 
-
+import { Plus } from "lucide-react";
+import AnimationEdit from "./AnimationEdit";
+import Fade from "../../../../node_modules/remotion-animated/dist/animations/Fade";
+import { cloneDeep } from "lodash";
 
 export default function AddAnimation() {
-  const [currentAnimation, setCurrentAnimation] = useState(
-    AnimationSelection.Fade
-  );
+  const newAnimation = useMemo(() => {
+    return {
+      selection: AnimationSelection.Fade,
+      animation: Fade({
+        to: 0,
+        initial: 0,
+      }),
+    }
+  }, []);
+  const { currentFrame, setFrames } = useFrameEditor();
+  const { animatingText } = useAnimate();
 
+  function onAddAnimation(animation:FrameAnimation){
+    setFrames(prevFrame => {
+      prevFrame[currentFrame].text[animatingText].animations.push(animation)
+      return cloneDeep(prevFrame);
+    })
+  }
   return (
     <Dialog>
-      <DialogTrigger>
-        <Button variant="outline">Add animation</Button>
+      <DialogTrigger className="ml-4 mt-2">
+        <Button variant="outline">
+          <Plus className="w-4 h-4 mr-1" />
+          Animation
+        </Button>
       </DialogTrigger>
-      <DialogContent className="flex flex-col w-[350px]">
-        <DialogTitle>Animation Selection</DialogTitle>
-        <DialogDescription>Select an animation to edit</DialogDescription>
-
-        <Select
-          onValueChange={(value: AnimationSelection) => {
-            setCurrentAnimation(value);
-          }}
-        >
-          <SelectTrigger className=" mt-2 h-max">
-            <SelectValue placeholder={AnimationSelection.Fade} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={AnimationSelection.Fade}>
-              {AnimationSelection.Fade}
-            </SelectItem>
-            <SelectItem value={AnimationSelection.Move}>
-              {AnimationSelection.Move}
-            </SelectItem>
-            <SelectItem value={AnimationSelection.Scale}>
-              {AnimationSelection.Scale}
-            </SelectItem>
-            <SelectItem value={AnimationSelection.Rotate}>
-              {AnimationSelection.Rotate}
-            </SelectItem>
-            <SelectItem value={AnimationSelection.Size}>
-              {AnimationSelection.Size}
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <div className="mt-1">
-          <AnimationOption animation={currentAnimation} />
-        </div>
-      </DialogContent>
+      <AnimationEdit animation={newAnimation} onDispatchAnimation={onAddAnimation}/>
     </Dialog>
-  );
-}
-
-function AnimationOption({ animation }: { animation: AnimationSelection }) {
-  switch (animation) {
-    case AnimationSelection.Fade:
-      return <Option options={["to", "initial"]} />;
-
-    case AnimationSelection.Scale:
-      return (
-        <Option options={["by", "x", "y", "initial", "initialX", "initialY"]} />
-      );
-    default:
-      break;
-  }
-}
-
-function Option({ options }: { options: string[] }) {
-  return (
-    <div className="flex flex-col space-y-3">
-      {options.map((option, idx) => {
-        return (
-          <div className="flex flex-col" key={idx}>
-            <div className="flex flex-row">
-              <div className="font-medium text-sm">{option}</div>
-              <div className="ml-auto mr-2">0</div>
-            </div>
-            <Slider defaultValue={[0]} max={100} step={1} className="mt-1" />
-          </div>
-        );
-      })}
-    </div>
   );
 }
