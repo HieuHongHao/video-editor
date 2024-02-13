@@ -74,12 +74,16 @@ const animationRender = {
 export default function AnimationEdit({
   animation,
   onDispatchAnimation,
+  setOpen
 }: {
   animation: FrameAnimation;
   onDispatchAnimation: (animation: FrameAnimation) => void;
+  setOpen: Dispatch<SetStateAction<boolean>>
 }) {
   const [currentAnimation, setCurrentAnimation] =
     useState<FrameAnimation>(animation);
+    
+
 
   return (
     <DialogContent className="flex flex-col w-[400px] h-max">
@@ -152,6 +156,7 @@ export default function AnimationEdit({
               ),
             };
             onDispatchAnimation(newAnimation);
+            setOpen(false);
           }}
         >
           Save changes
