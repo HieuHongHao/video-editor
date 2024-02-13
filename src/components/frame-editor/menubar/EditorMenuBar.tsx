@@ -21,6 +21,7 @@ import { cloneDeep } from "lodash";
 import { FontSize, Format } from "../../../types/draggable.d.ts";
 export default function EditorMenuBar() {
   const { setFrames, currentFrame } = useFrameEditor();
+  
   return (
     <Menubar className="w-max ml-10">
       <MenubarMenu>
@@ -39,7 +40,8 @@ export default function EditorMenuBar() {
                     relativeTop: 0,
                     text: "Enter your text here",
                     size: FontSize.sm,
-                    format: Format.medium
+                    format: Format.medium,
+                    animations:[]
                   },
                 ];
                 return cloneDeep(prev);

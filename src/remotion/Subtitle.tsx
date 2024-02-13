@@ -8,6 +8,10 @@ interface SubtitleProps {
   backgroundColor?: String;
 }
 
+
+
+
+
 export const Subtitle: React.FC<SubtitleProps> = ({
   text,
   backgroundColor,

@@ -27,6 +27,7 @@ export default function AnimationDisplay({
       return cloneDeep(prevFrames);
     });
   }
+  
   return (
     <Dialog>
       <DialogTrigger className="ml-4 mt-2">

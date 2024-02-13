@@ -5,8 +5,9 @@ import { AbsoluteFill } from "remotion";
 import Animated from "../../node_modules/remotion-animated/dist/Animated";
 import Scale from "../../node_modules/remotion-animated/dist/animations/Scale";
 import Fade from "../../node_modules/remotion-animated/dist/animations/Fade";
-import Move from "../../node_modules/remotion-animated/dist/animations/Move";
 import Size from "../../node_modules/remotion-animated/dist/animations/Size";
+import Move from "../../node_modules/remotion-animated/dist/animations/Move";
+
 
 
 
@@ -29,6 +30,7 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
                       backgroundColor: frame.backgroundColor,
                     }
               }
+              className="relative"
             >
               {frame.text.map((text) => {
                 return (

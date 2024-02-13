@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import type { DragItemText } from "./draggable";
 
+
+
+
 export interface IFrame {
   text: DragItemText[];
   backgroundColor: string;

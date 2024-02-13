@@ -80,7 +80,6 @@ export default function AnimationEdit({
 }) {
   const [currentAnimation, setCurrentAnimation] =
     useState<FrameAnimation>(animation);
-  const [option, setOption] = useState<Option>(null);
 
   return (
     <DialogContent className="flex flex-col w-[400px] h-max">
@@ -96,11 +95,12 @@ export default function AnimationEdit({
           setCurrentAnimation({
             selection: value,
             animation: animationRender[value](animationConfiguration),
+            option: animationConfiguration,
           });
         }}
       >
         <SelectTrigger className=" mt-2 h-max">
-          <SelectValue placeholder={AnimationSelection.Fade} />
+          <SelectValue placeholder={animation.selection} />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={AnimationSelection.Fade}>
@@ -121,22 +121,20 @@ export default function AnimationEdit({
         </SelectContent>
       </Select>
       <div className="flex flex-col space-y-3 mt-1">
-        {animationOptions[currentAnimation.selection].map((option, idx) => {
+        {animationOptions[currentAnimation.selection].map((config, idx) => {
           return (
             <div className="flex flex-col" key={idx}>
-              <div className="font-medium text-sm">{option}</div>
+              <div className="font-medium text-sm">{config}</div>
 
               <Input
-                placeholder={`Enter ${option} value`}
+                placeholder={`${currentAnimation.option[config]}`}
                 className="mt-1"
                 onChange={(e) => {
-                  setOption((prev) => {
-                    if (!prev) {
-                      const temp = {};
-                      temp[`${option}`] = parseInt(e.target.value);
-                      return temp;
-                    }
-                    prev[`${option}`] = parseInt(e.target.value);
+                  setCurrentAnimation((prev) => {
+                    prev.option = {
+                      ...prev.option,
+                      [config]: parseInt(e.currentTarget.value),
+                    };
                     return { ...prev };
                   });
                 }}
@@ -147,10 +145,13 @@ export default function AnimationEdit({
         <Button
           type="submit"
           onClick={() => {
-            onDispatchAnimation({
-              selection: currentAnimation.selection,
-              animation: animationRender[currentAnimation.selection](option),
-            });
+            const newAnimation = {
+              ...currentAnimation,
+              animation: animationRender[currentAnimation.selection](
+                currentAnimation.option
+              ),
+            };
+            onDispatchAnimation(newAnimation);
           }}
         >
           Save changes

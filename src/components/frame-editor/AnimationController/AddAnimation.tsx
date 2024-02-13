@@ -21,16 +21,22 @@ export default function AddAnimation() {
         to: 0,
         initial: 0,
       }),
-    }
+      option: {
+        to: 0,
+        initial: 0,
+      },
+    };
   }, []);
   const { currentFrame, setFrames } = useFrameEditor();
   const { animatingText } = useAnimate();
 
-  function onAddAnimation(animation:FrameAnimation){
-    setFrames(prevFrame => {
-      prevFrame[currentFrame].text[animatingText].animations.push(animation)
+  function onAddAnimation(animation: FrameAnimation) {
+    setFrames((prevFrame) => {
+      prevFrame[currentFrame].text[animatingText].animations.push(animation);
+      console.log(prevFrame[currentFrame].text[animatingText].animations);
       return cloneDeep(prevFrame);
-    })
+    });
+    
   }
   return (
     <Dialog>
@@ -40,7 +46,10 @@ export default function AddAnimation() {
           Animation
         </Button>
       </DialogTrigger>
-      <AnimationEdit animation={newAnimation} onDispatchAnimation={onAddAnimation}/>
+      <AnimationEdit
+        animation={newAnimation}
+        onDispatchAnimation={onAddAnimation}
+      />
     </Dialog>
   );
 }
