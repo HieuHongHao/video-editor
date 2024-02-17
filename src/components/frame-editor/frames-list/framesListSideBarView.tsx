@@ -19,7 +19,7 @@ export default function FramesList() {
       })}
       <Button className="ml-28 mt-4" size={"sm"} variant={"outline"}>
         <Plus className="w-4 h-4 mr-1" />
-        New Frame
+        Frame
       </Button>
     </ScrollArea>
   );

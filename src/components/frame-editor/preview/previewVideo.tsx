@@ -3,6 +3,8 @@ import { useMemo } from "react";
 import type { FramesProps, IFrame } from "@/types/frame";
 import { Frames } from "@/remotion/Frames";
 
+
+
 export default function PreviewVideo({ frames }: { frames: IFrame[] }) {
   const inputProps: FramesProps = useMemo(() => {
     return {

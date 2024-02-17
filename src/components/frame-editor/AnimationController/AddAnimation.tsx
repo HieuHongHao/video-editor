@@ -24,12 +24,16 @@ export default function AddAnimation() {
       option: {
         to: 0,
         initial: 0,
+        duration: 15,
+        start:0
       },
     };
   }, []);
   const { currentFrame, setFrames } = useFrameEditor();
   const { animatingText } = useAnimate();
   const [open, setOpen] = useState(false);
+
+  
 
   function onAddAnimation(animation: FrameAnimation) {
     setFrames((prevFrame) => {

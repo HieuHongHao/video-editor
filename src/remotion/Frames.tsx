@@ -8,9 +8,6 @@ import Fade from "../../node_modules/remotion-animated/dist/animations/Fade";
 import Size from "../../node_modules/remotion-animated/dist/animations/Size";
 import Move from "../../node_modules/remotion-animated/dist/animations/Move";
 
-
-
-
 export const Frames: React.FC<FramesProps> = ({ frames }) => {
   return (
     <TransitionSeries>
@@ -36,7 +33,12 @@ export const Frames: React.FC<FramesProps> = ({ frames }) => {
                 return (
                   <Animated
                     key={text.id}
-                    animations={text.animations.map(textAnimation => textAnimation.animation)}
+                    animations={text.animations.map(
+                      (textAnimation) => textAnimation.animation
+                    )}
+                    // animations={[
+                    //   Fade({ start: 10, duration: 30, initial: 0, to: 1}),
+                    // ]}
                   >
                     <Subtitle text={text} />
                   </Animated>

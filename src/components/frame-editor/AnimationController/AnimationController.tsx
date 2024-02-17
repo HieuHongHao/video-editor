@@ -3,6 +3,8 @@ import useFrameEditor from "@/hooks/useFrameEditor";
 import AddAnimation from "./AddAnimation";
 import AnimationDisplay from "./AnimationDisplay";
 
+
+
 export default function AnimationController() {
   const { animatingText } = useAnimate();
   const { currentFrame, frames } = useFrameEditor();
