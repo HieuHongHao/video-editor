@@ -10,7 +10,7 @@ export default function AnimationController() {
   const { currentFrame, frames } = useFrameEditor();
 
   return (
-    <div className="w-full border rounded-md mt-3 h-2/5 flex flex-col">
+    <div className="w-max border border-r-0 mt-0 border-t-0 border-l-0 h-2/5 flex flex-col">
       <div className="font-semibold text-2xl mt-2 ml-5">Animations</div>
       {animatingText === -1 ? (
         <div className="mt-1 ml-5 text-[0.8125rem]">

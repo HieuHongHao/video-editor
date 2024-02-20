@@ -5,10 +5,6 @@ import type { GlobalEditorContext } from "@/types/frame";
 import { FontSize, Format } from "../types/draggable.d.ts";
 
 
-
-
-
-
 export const FrameContext = createContext<GlobalEditorContext>({
   frames: [],
   setFrames: () => [],
@@ -23,8 +19,8 @@ export default function VideoEditor() {
       text: [
         {
           id: 0,
-          top: 160,
-          left: 220,
+          top: 175,
+          left: 250,
           relativeLeft: 0,
           relativeTop: 0,
           text: "Enter your text here",
@@ -39,6 +35,8 @@ export default function VideoEditor() {
     },
   ]);
   const [currentFrame, setCurrentFrame] = useState(0);
+
+  
   
   return (
     <FrameContext.Provider

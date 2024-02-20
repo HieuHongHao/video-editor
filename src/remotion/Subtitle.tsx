@@ -16,12 +16,13 @@ export const Subtitle: React.FC<SubtitleProps> = ({
   text,
   backgroundColor,
 }) => {
+  console.log(text?.size)
   return (
     <div
       className={`${text?.size} ${text?.format} w-max absolute`}
       style={{
-        top: text?.top,
-        left: text?.left,
+        top: text?.top + 40,
+        left: text?.left ,
       }}
     >
       {text?.text}

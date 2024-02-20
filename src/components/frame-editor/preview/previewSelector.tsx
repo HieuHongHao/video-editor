@@ -13,7 +13,7 @@ export default function PreviewSelector({
   select: Dispatch<SetStateAction<SelectAction>>;
 }) {
   return (
-    <div className="flex flex-col ml-auto">
+    <div className="flex flex-col ml-auto mr-6">
       <Select
         onValueChange={(value) => {
           select(value as SelectAction);

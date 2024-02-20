@@ -12,13 +12,13 @@ export interface IFrame {
   duration: number;
 }
 
-
 export type GlobalEditorContext = {
   frames: IFrame[];
   setFrames: Dispatch<SetStateAction<IFrame[]>>;
   currentFrame: number;
   setCurrentFrame: Dispatch<SetStateAction<number>>;
 };
+
 
 export interface FramesProps {
   frames: IFrame[];

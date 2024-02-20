@@ -1,3 +1,4 @@
+import { useVideoConfig } from "remotion"
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { Subtitle } from "./Subtitle";
 import type { FramesProps } from "../types/frame";
@@ -9,6 +10,11 @@ import Size from "../../node_modules/remotion-animated/dist/animations/Size";
 import Move from "../../node_modules/remotion-animated/dist/animations/Move";
 
 export const Frames: React.FC<FramesProps> = ({ frames }) => {
+  const { width, height, fps, durationInFrames } = useVideoConfig();
+  console.log(width); // 1920
+  console.log(height); // 1080
+  console.log(fps); // 30;
+  console.log(durationInFrames); // 30
   return (
     <TransitionSeries>
       {frames.map((frame, idx) => {

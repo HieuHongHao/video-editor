@@ -9,7 +9,7 @@ export default function FramesList() {
   const { frames } = useFrameEditor();
 
   return (
-    <ScrollArea className="flex flex-col h-screen w-1/4 border">
+    <ScrollArea className="flex flex-col h-screen w-1/4 border ">
       <div className="w-[100px] font-semibold text-2xl ml-5 mt-2">Frames</div>
       <div className="text-[0.8125rem] font-normal ml-6 mt-2">
         Choose a frame to edit or see preview

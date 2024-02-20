@@ -17,35 +17,34 @@ export enum SelectAction {
   Video = "video",
 }
 
-
 export const FrameEditorContext = createContext<AnimationContext>({
   animatingText: 0,
   setAnimatingText: () => 0,
-})
+});
 
 export default function FrameEditor() {
   const [selection, setSelect] = useState<SelectAction>(SelectAction.Edit);
   const [animatingText, setAnimatingText] = useState(-1);
 
-  
   return (
-    <FrameEditorContext.Provider value={{animatingText, setAnimatingText}}>
+    <FrameEditorContext.Provider value={{ animatingText, setAnimatingText }}>
       <div className="flex flex-row h-screen">
-      <FramesList />
-      <div className="flex flex-col h-full w-1/2 ml-5 mr-5">
-        <div className="flex flex-row mt-2">
-          <EditorMenuBar />
-          <PreviewSelector select={setSelect} />
+        <FramesList />
+        <div className="flex flex-col h-full w-3/4 border border-r-0 border-l-0 border-b">
+          <div className="flex flex-row mt-2">
+            <EditorMenuBar />
+            <PreviewSelector select={setSelect} />
+          </div>
+
+          <MediaController selection={selection} />
+
+          <div className="w-full border"></div>
+          
+          <AnimationController />
         </div>
-
-        <MediaController selection={selection} />
-
-        <AnimationController/>
+        
       </div>
-      <EffectSelector />
-    </div>
     </FrameEditorContext.Provider>
-    
   );
 }
 

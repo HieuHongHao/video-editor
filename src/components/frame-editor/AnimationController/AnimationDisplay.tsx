@@ -26,6 +26,7 @@ export default function AnimationDisplay({
       prevFrames[currentFrame].text[animatingText].animations[idx] = animation;
       return cloneDeep(prevFrames);
     });
+    
   }
   
   return (

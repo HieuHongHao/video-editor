@@ -2,8 +2,8 @@ import { useState, useMemo, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import {
   ContextMenu,
-  ContextMenuContent,
   ContextMenuItem,
+  ContextMenuContent,
   ContextMenuTrigger,
   ContextMenuSubTrigger,
   ContextMenuSub,
@@ -68,7 +68,7 @@ export default function Editor() {
 
   return (
     <div
-      className="border w-[720px] h-[360px] rounded-2xl object-cover mt-4 flex flex-col relative"
+      className="w-[800px] h-[480px] object-cover mt-4 flex flex-col relative border  ml-10 mb-5"
       style={
         backgroundColor.startsWith("linear")
           ? {
