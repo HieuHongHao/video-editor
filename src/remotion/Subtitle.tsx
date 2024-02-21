@@ -21,7 +21,7 @@ export const Subtitle: React.FC<SubtitleProps> = ({
     <div
       className={`${text?.size} ${text?.format} w-max absolute`}
       style={{
-        top: text?.top + 40,
+        top: text?.top,
         left: text?.left ,
       }}
     >

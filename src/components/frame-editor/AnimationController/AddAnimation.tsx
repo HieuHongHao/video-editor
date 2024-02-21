@@ -45,7 +45,7 @@ export default function AddAnimation() {
   }
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger className="ml-4 mt-2">
+      <DialogTrigger className="ml-8 mt-2">
         <Button variant="outline">
           <Plus className="w-4 h-4 mr-1" />
           Animation

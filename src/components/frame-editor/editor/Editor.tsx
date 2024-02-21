@@ -68,7 +68,7 @@ export default function Editor() {
 
   return (
     <div
-      className="w-[800px] h-[480px] object-cover mt-4 flex flex-col relative border  ml-10 mb-5"
+      className="w-[800px] h-[480px] object-cover flex flex-col relative border ml-10 rounded-md"
       style={
         backgroundColor.startsWith("linear")
           ? {

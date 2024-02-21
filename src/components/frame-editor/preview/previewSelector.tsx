@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { Dispatch, SetStateAction } from "react";
 import { SelectAction } from "../FrameEditor";
+
 export default function PreviewSelector({
   select,
 }: {

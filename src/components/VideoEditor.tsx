@@ -33,6 +33,63 @@ export default function VideoEditor() {
       duration: 240,
       end: 60,
     },
+    {
+      backgroundColor: "#FFFFFF",
+      text: [
+        {
+          id: 0,
+          top: 175,
+          left: 250,
+          relativeLeft: 0,
+          relativeTop: 0,
+          text: "Enter your text here",
+          size: FontSize["3xl"],
+          format: Format.medium,
+          animations: []
+        },
+      ],
+      start: 0,
+      duration: 240,
+      end: 60,
+    },
+    {
+      backgroundColor: "#FFFFFF",
+      text: [
+        {
+          id: 0,
+          top: 175,
+          left: 250,
+          relativeLeft: 0,
+          relativeTop: 0,
+          text: "Enter your text here",
+          size: FontSize["3xl"],
+          format: Format.medium,
+          animations: []
+        },
+      ],
+      start: 0,
+      duration: 240,
+      end: 60,
+    },
+    {
+      backgroundColor: "#FFFFFF",
+      text: [
+        {
+          id: 0,
+          top: 175,
+          left: 250,
+          relativeLeft: 0,
+          relativeTop: 0,
+          text: "Enter your text here",
+          size: FontSize["3xl"],
+          format: Format.medium,
+          animations: []
+        },
+      ],
+      start: 0,
+      duration: 240,
+      end: 60,
+    }
   ]);
   const [currentFrame, setCurrentFrame] = useState(0);
 

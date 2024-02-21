@@ -24,6 +24,7 @@ export default function AnimationDisplay({
   function onEditAnimation(animation: FrameAnimation) {
     setFrames((prevFrames) => {
       prevFrames[currentFrame].text[animatingText].animations[idx] = animation;
+      
       return cloneDeep(prevFrames);
     });
     
@@ -31,7 +32,7 @@ export default function AnimationDisplay({
   
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger className="ml-4 mt-2">
+      <DialogTrigger className="ml-8 mt-2">
         <Button variant="outline">{animation.selection}</Button>
       </DialogTrigger>
       <AnimationEdit
