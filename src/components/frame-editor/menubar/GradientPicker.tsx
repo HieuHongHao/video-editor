@@ -10,20 +10,14 @@ import {
 } from "@/components/ui/menubar";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { cloneDeep } from "lodash";
+import useEditFrame from "@/hooks/useEditFrame";
 
-
-
-
-export function GradientPicker({
-  className,
-}: {
-  className?: string;
-}) {
-  const {frames, setFrames, currentFrame} = useFrameEditor();
+export function GradientPicker({ className }: { className?: string }) {
+  const { frame, editFrame } = useEditFrame();
   const background = useMemo(() => {
-    return frames[currentFrame].backgroundColor;
-  }, [frames, currentFrame])
-  
+    return frame.backgroundColor;
+  }, [frame.backgroundColor]);
+
   const solids = [
     "#FFFFFF",
     "#E2E2E2",
@@ -99,17 +93,19 @@ export function GradientPicker({
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="solid" className="flex flex-wrap gap-1 mt-0 w-[220px] ">
+          <TabsContent
+            value="solid"
+            className="flex flex-wrap gap-1 mt-0 w-[220px] "
+          >
             {solids.map((s) => (
               <div
                 key={s}
                 style={{ background: s }}
                 className="rounded-md h-6 w-6 cursor-pointer active:scale-105"
                 onClick={() => {
-                  setFrames(prev => {
-                    prev[currentFrame].backgroundColor = s;
-                    return cloneDeep(prev);
-                  })
+                  editFrame((frame) => {
+                    frame.backgroundColor = s;
+                  });
                 }}
               />
             ))}
@@ -125,10 +121,9 @@ export function GradientPicker({
                 style={{ background: s }}
                 className="rounded-md h-6 w-6 cursor-pointer active:scale-105"
                 onClick={() => {
-                  setFrames(prev => {
-                    prev[currentFrame].backgroundColor = s;
-                    return cloneDeep(prev);
-                  })
+                  editFrame((frame) => {
+                    frame.backgroundColor = s;
+                  });
                 }}
               />
             ))}
@@ -142,10 +137,9 @@ export function GradientPicker({
                   style={{ backgroundImage: s }}
                   className="rounded-md bg-cover bg-center h-12 w-full cursor-pointer active:scale-105"
                   onClick={() => {
-                    setFrames(prev => {
-                      prev[currentFrame].backgroundColor = s;
-                      return cloneDeep(prev);
-                    })
+                    editFrame((frame) => {
+                      frame.backgroundColor = s;
+                    });
                   }}
                 />
               ))}
@@ -185,7 +179,6 @@ const GradientButton = ({
       <div className="bg-popover/80 rounded-md p-1 text-xs text-center">
         {children}
       </div>
-      
     </div>
   );
 };

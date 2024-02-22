@@ -18,6 +18,7 @@ import { cloneDeep } from "lodash";
 import useFrameEditor from "@/hooks/useFrameEditor";
 import { fontSizeArray, formatArray } from "../../../utils/text-edit";
 import useAnimate from "@/hooks/useAnimate";
+import useEditFrame from "@/hooks/useEditFrame";
 
 const Draggable = {
   TEXT: "text",
@@ -33,23 +34,23 @@ type EditorPosition = {
   left: number;
 };
 export default function Editor() {
-  const { frames, setFrames, currentFrame } = useFrameEditor();
+  const { frame, editFrame } = useEditFrame();
+
   const { backgroundColor, textBoxes } = useMemo(() => {
     return {
-      backgroundColor: frames[currentFrame].backgroundColor,
-      textBoxes: frames[currentFrame].text,
+      backgroundColor: frame.backgroundColor,
+      textBoxes: frame.text,
     };
-  }, [frames, currentFrame]);
+  }, [frame.backgroundColor, frame.text]);
 
   const moveBox = useCallback(
     (id: number, left: number, top: number) => {
-      setFrames((prev) => {
-        prev[currentFrame].text[id].top = top;
-        prev[currentFrame].text[id].left = left;
-        return cloneDeep(prev);
+      editFrame((editFrame) => {
+        editFrame.text[id].top = top;
+        editFrame.text[id].left = left;
       });
     },
-    [setFrames, currentFrame]
+    [editFrame]
   );
 
   const [, drop] = useDrop(
@@ -111,7 +112,7 @@ function DraggableText({
 }: DragItemText) {
   const [isEditing, setisEditing] = useState(false);
 
-  const { setFrames, currentFrame } = useFrameEditor();
+  const { editFrame } = useEditFrame();
 
   const { setAnimatingText } = useAnimate();
 
@@ -153,9 +154,8 @@ function DraggableText({
             style={positionStyle}
             key={id}
             onChange={(e) => {
-              setFrames((prev) => {
-                prev[currentFrame].text[id].text = e.target.value;
-                return cloneDeep(prev);
+              editFrame((frame) => {
+                frame.text[id].text = e.target.value;
               });
             }}
             onMouseLeave={() => {
@@ -186,9 +186,8 @@ function DraggableText({
                 <ContextMenuItem
                   key={idx}
                   onClick={() => {
-                    setFrames((prev) => {
-                      prev[currentFrame].text[id].size = size;
-                      return cloneDeep(prev);
+                    editFrame((frame) => {
+                      frame.text[id].size = size;
                     });
                   }}
                 >
@@ -218,9 +217,8 @@ function DraggableText({
                 <ContextMenuItem
                   key={idx}
                   onClick={() => {
-                    setFrames((prev) => {
-                      prev[currentFrame].text[id].format = format;
-                      return cloneDeep(prev);
+                    editFrame((frame) => {
+                      frame.text[id].format = format;
                     });
                   }}
                 >

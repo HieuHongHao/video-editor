@@ -3,12 +3,13 @@ import type { IFrame } from "@/types/frame";
 import FrameEditor from "./frame-editor/FrameEditor";
 import type { GlobalEditorContext } from "@/types/frame";
 import { FontSize, Format } from "../types/draggable.d.ts";
+import { nanoid } from 'nanoid'
 
 
 export const FrameContext = createContext<GlobalEditorContext>({
   frames: [],
   setFrames: () => [],
-  currentFrame: 0,
+  currentFrame: "",
   setCurrentFrame: () => 0,
 });
 
@@ -32,6 +33,7 @@ export default function VideoEditor() {
       start: 0,
       duration: 240,
       end: 60,
+      id: nanoid()
     },
     {
       backgroundColor: "#FFFFFF",
@@ -51,6 +53,7 @@ export default function VideoEditor() {
       start: 0,
       duration: 240,
       end: 60,
+      id: nanoid()
     },
     {
       backgroundColor: "#FFFFFF",
@@ -70,6 +73,7 @@ export default function VideoEditor() {
       start: 0,
       duration: 240,
       end: 60,
+      id: nanoid()
     },
     {
       backgroundColor: "#FFFFFF",
@@ -89,9 +93,10 @@ export default function VideoEditor() {
       start: 0,
       duration: 240,
       end: 60,
+      id: nanoid()
     }
   ]);
-  const [currentFrame, setCurrentFrame] = useState(0);
+  const [currentFrame, setCurrentFrame] = useState(frames[0].id);
 
   
   

@@ -14,10 +14,10 @@ export default function FramesList() {
       <div className="text-[0.8125rem] font-normal ml-6 mt-2">
         Choose a frame to edit or see preview
       </div>
-      {frames.map((frame, idx) => {
-        return <FrameView frame={frame} key={idx} />;
+      {frames.map((frame) => {
+        return <FrameView frame={frame} key={frame.id} />;
       })}
-      <Button className="ml-28 mt-4" size={"sm"} variant={"outline"}>
+      <Button className="ml-28 mt-4 mb-4" size={"sm"} variant={"outline"}>
         <Plus className="w-4 h-4 mr-1" />
         Frame
       </Button>
@@ -26,9 +26,11 @@ export default function FramesList() {
 }
 
 function FrameView({ frame }: { frame: IFrame }) {
+  const { setCurrentFrame, currentFrame } = useFrameEditor();
+
   return (
     <div
-      className="border rounded-2xl object-cover mt-4 ml-auto mr-auto flex flex-col h-[144px] w-[288px] hover:border-2 hover:border-black relative"
+      className={`border rounded-2xl object-cover mt-4 ml-auto mr-auto flex flex-col h-[144px] w-[288px] hover:border-2 hover:border-black relative ${currentFrame === frame.id && "border-2 border-black"}`}
       style={
         frame.backgroundColor.startsWith("linear")
           ? {
@@ -38,6 +40,9 @@ function FrameView({ frame }: { frame: IFrame }) {
               backgroundColor: frame.backgroundColor,
             }
       }
+      onClick={() => {
+        setCurrentFrame(frame.id);
+      }}
     >
       {frame.text.map((text) => {
         const fontSize = FontSizeSideBar[text.size!];

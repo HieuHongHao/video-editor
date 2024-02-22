@@ -10,6 +10,7 @@ import useFrameEditor from "@/hooks/useFrameEditor";
 import PreviewVideo from "./preview/previewVideo";
 import AnimationController from "./AnimationController/AnimationController";
 import { AnimationContext } from "@/types/frame";
+import useEditFrame from "@/hooks/useEditFrame";
 
 export enum SelectAction {
   Edit = "edit",
@@ -50,7 +51,8 @@ export default function FrameEditor() {
 }
 
 function MediaController({ selection }: { selection: SelectAction }) {
-  const { currentFrame, frames } = useFrameEditor();
+  const { frames } = useFrameEditor();
+  const {frame} = useEditFrame();
   if (selection === SelectAction.Edit) {
     return (
       <DndProvider backend={HTML5Backend}>
@@ -58,7 +60,7 @@ function MediaController({ selection }: { selection: SelectAction }) {
       </DndProvider>
     );
   } else if (selection === SelectAction.Frame) {
-    return <PreviewVideo frames={[frames[currentFrame]]} />;
+    return <PreviewVideo frames={[frame]} />;
   }
   return <PreviewVideo frames={frames} />;
 }
